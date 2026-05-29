@@ -1,0 +1,156 @@
+%% ============================================================
+%%  cover_letter.tex — Applied Mathematics Cover Letter
+%%  Customise: search <<FILL>> — 8 spots total
+%%  Compile:   pdflatex cover_letter.tex  (one pass is enough)
+%% ============================================================
+
+\documentclass[10pt,letterpaper]{article}
+
+%% ── Geometry ────────────────────────────────────────────────
+\usepackage[top=0.80in,bottom=0.80in,left=0.90in,right=0.90in]{geometry}
+
+%% ── Encoding & Font ─────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{palatino}
+\usepackage{microtype}
+
+%% ── Math ────────────────────────────────────────────────────
+\usepackage{amsmath,amssymb}
+
+%% ── Colors ──────────────────────────────────────────────────
+\usepackage[dvipsnames,svgnames]{xcolor}
+\definecolor{NavyDeep}{HTML}{1B2A4A}
+\definecolor{AccentTeal}{HTML}{2A6E7C}
+\definecolor{RuleGray}{HTML}{C8CDD5}
+\definecolor{SubtleGray}{HTML}{6B7280}
+
+%% ── Hyperlinks ──────────────────────────────────────────────
+\usepackage[hidelinks]{hyperref}
+\hypersetup{colorlinks=true,urlcolor=AccentTeal,linkcolor=NavyDeep}
+
+%% ── Icons ───────────────────────────────────────────────────
+\usepackage{marvosym}
+
+%% ── Spacing ─────────────────────────────────────────────────
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{7pt}
+
+\pagestyle{empty}
+
+%% ============================================================
+\begin{document}
+
+%% ── Letterhead ──────────────────────────────────────────────
+\begin{center}
+  {\fontsize{18}{22}\selectfont\bfseries\color{NavyDeep} Your Full Name}\\[3pt]%   % <<FILL>> name
+  {\color{AccentTeal}\rule{3cm}{1pt}}\\[4pt]%
+  {\small\color{SubtleGray}%
+    \Email\enspace\href{mailto:you@university.edu}{you@university.edu}%
+    \quad\textbar\quad%
+    \Telefon\enspace +1\,(555)\,000-0000%                                           % <<FILL>> phone
+    \quad\textbar\quad%
+    \href{https://yoursite.com}{yoursite.com}%                                      % <<FILL>> website
+    \quad\textbar\quad%
+    \href{https://github.com/yourhandle}{github.com/yourhandle}%                    % <<FILL>> github
+  }%
+\end{center}
+{\color{RuleGray}\rule{\linewidth}{0.4pt}}
+
+\bigskip
+
+%% ── Date ────────────────────────────────────────────────────
+{\color{SubtleGray}\today}
+
+\medskip
+
+%% ── Recipient — one field per line, NO inline comments ──────
+Prof.\ Recipient Name\\         % <<FILL>> hiring manager / committee chair
+Search Committee Chair\\
+Department of Applied Mathematics\\
+Target University or Company\\  % <<FILL>> institution
+City, State, ZIP                % <<FILL>> address
+
+\medskip
+
+%% ── Subject line ────────────────────────────────────────────
+\textbf{Re: Application for Postdoctoral Researcher in Numerical Analysis
+(Position \#12345)}             % <<FILL>> title + ref number
+
+\medskip
+
+%% ── Salutation ──────────────────────────────────────────────
+Dear Prof.\ Recipient Name,     % <<FILL>> salutation
+
+%% ── Opening ─────────────────────────────────────────────────
+I am writing to apply for the postdoctoral position in numerical analysis
+at Target University.           % <<FILL>> tailor institution / role
+I am completing my Ph.D.\ in Applied Mathematics at the University of
+Somewhere under the supervision of Prof.\ Jane Doe, with an expected
+graduation of May~2026.
+My research sits at the intersection of \textit{numerical methods for
+stochastic PDEs}, \textit{uncertainty quantification}, and
+\textit{high-performance scientific computing} — areas directly aligned
+with your group's work on multilevel Monte Carlo methods for subsurface
+flow problems.                  % <<FILL>> specific thread of theirs
+
+%% ── Dissertation ────────────────────────────────────────────
+\textbf{Dissertation research.}\enspace
+My dissertation develops \emph{adaptive} multilevel Monte Carlo (MLMC)
+estimators for elliptic stochastic PDEs
+\(-\nabla\cdot(a(\mathbf{x},\omega)\nabla u)=f\),
+where \(a\) is a log-normal random field.
+Standard MLMC requires pre-specified mesh hierarchies and sample counts,
+which is fragile when the coefficient is spatially rough.
+I designed an online algorithm that selects level parameters by minimising
+a cost-versus-variance trade-off estimated from a Gaussian process
+surrogate, and proved optimal \(\mathcal{O}(\varepsilon^{-2}|\log\varepsilon|^2)\)
+complexity without \emph{a priori} knowledge of coefficient regularity.
+Implemented in C++/MPI with FEniCS and PETSc, the method achieves a
+\(3\times\) wall-clock speedup over standard MLMC on a 3-D Darcy flow
+benchmark with weak scaling to 512~cores.
+This work will appear in the \textit{SIAM Journal on Scientific Computing}
+(2024).
+
+%% ── Secondary research ──────────────────────────────────────
+\textbf{Optimization and machine learning.}\enspace
+During a research internship at National Lab, I proved sharp
+\(\mathcal{O}(k^{-1/2})\) convergence rates for stochastic gradient
+descent under \((L,\sigma)\)-smoothness — strictly weaker than the
+standard bounded-gradient assumption — and showed the rate is
+unimprovable by constructing matching lower bounds.
+This preprint is under revision for \textit{NeurIPS~2024} and informs
+my long-term interest in theoretically grounded optimisation for
+large-scale inverse problems.
+
+%% ── Fit paragraph — MOST IMPORTANT, customise per application
+\textbf{Why Target University.}\enspace % <<FILL>> institution name
+I am particularly drawn to Prof.\ Recipient's recent work on [specific
+paper or project].
+The questions you raise about [specific technical aspect] connect
+directly to the algorithmic ideas I have developed, and I see clear
+potential for collaboration on [concrete joint direction].
+I also look forward to contributing to graduate teaching; I have served
+as instructor of record for Calculus~II and am keen to develop courses
+in numerical methods or scientific computing.
+
+%% ── Closing ─────────────────────────────────────────────────
+I have enclosed my curriculum vitae, project portfolio, and three
+letters of reference from Prof.\ Jane Doe, Dr.\ John Smith, and
+Prof.\ Alice Brown.
+I would welcome the opportunity to discuss my research at your
+convenience.
+
+\vspace{10pt}
+Sincerely,
+
+\vspace{22pt}
+{\bfseries\color{NavyDeep} Your Full Name}\\  % <<FILL>> name
+{\small\color{SubtleGray}
+  Ph.D.\ Candidate, Applied Mathematics\\
+  University of Somewhere\\
+  \href{mailto:you@university.edu}{you@university.edu}%
+}
+
+\end{document}

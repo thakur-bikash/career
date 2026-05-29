@@ -1,0 +1,266 @@
+%% ============================================================
+%%  projects.tex — Applied Mathematics Project Portfolio
+%%  Fonts: Palatino  |  No fontawesome5 / lmodern dependency
+%%  KEY FIX: \tag renamed to \cvtag (amsmath owns \tag)
+%%  Compile: pdflatex projects.tex  (run twice)
+%% ============================================================
+
+\documentclass[10pt,letterpaper]{article}
+
+%% ── Geometry ────────────────────────────────────────────────
+\usepackage[top=0.65in,bottom=0.65in,left=0.70in,right=0.70in]{geometry}
+
+%% ── Encoding & Font ─────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{palatino}
+\usepackage{microtype}
+
+%% ── Math ────────────────────────────────────────────────────
+\usepackage{amsmath,amssymb,amsthm}
+
+%% ── Colors ──────────────────────────────────────────────────
+\usepackage[dvipsnames,svgnames]{xcolor}
+\definecolor{NavyDeep}{HTML}{1B2A4A}
+\definecolor{AccentTeal}{HTML}{2A6E7C}
+\definecolor{RuleGray}{HTML}{C8CDD5}
+\definecolor{SubtleGray}{HTML}{6B7280}
+\definecolor{TagBg}{HTML}{E8F4F6}
+
+%% ── Hyperlinks ──────────────────────────────────────────────
+\usepackage[hidelinks]{hyperref}
+\hypersetup{colorlinks=true,urlcolor=AccentTeal,linkcolor=NavyDeep}
+
+%% ── Lists ───────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{
+  leftmargin=1.4em,itemsep=1.5pt,parsep=0pt,topsep=2pt,
+  label={\color{AccentTeal}\textbullet}
+}
+
+%% ── Tables ──────────────────────────────────────────────────
+\usepackage{booktabs,tabularx,array}
+
+%% ── Colored boxes ───────────────────────────────────────────
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+%% ── Icons ───────────────────────────────────────────────────
+\usepackage{marvosym}   % \Email etc.
+\usepackage{pifont}     % \ding{} checkmarks etc.
+
+%% ── Page-break control ──────────────────────────────────────
+\usepackage{needspace}
+
+%% ── Misc ────────────────────────────────────────────────────
+\usepackage{parskip,etoolbox}
+\setlength{\parskip}{0pt}
+\pagestyle{empty}
+
+%% ============================================================
+%%  CUSTOM COMMANDS
+%% ============================================================
+
+\newcommand{\pfsection}[1]{%
+  \needspace{6\baselineskip}%
+  \vspace{6pt}%
+  {\color{NavyDeep}\rule{\linewidth}{0.8pt}\par}%
+  \vspace{-2pt}%
+  {\color{NavyDeep}\large\bfseries\MakeUppercase{#1}\par}%
+  \vspace{3pt}%
+}
+
+%% Project card header: \projecthead{Title}{Subtitle}{Date}
+\newcommand{\projecthead}[3]{%
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    {\large\bfseries\color{NavyDeep}#1} & {\small\color{SubtleGray}#3}\\[-2pt]
+    {\small\itshape\color{AccentTeal}#2} & \\
+  \end{tabularx}%
+  \vspace{2pt}%
+}
+
+%% Method/tool tag  — NOTE: named \cvtag to avoid clash with amsmath \tag
+\newcommand{\cvtag}[1]{%
+  \mbox{\small\bfseries\color{AccentTeal}\texttt{[#1]}}\,%
+}
+
+%% Key result callout box
+\newcommand{\keyresult}[1]{%
+  \vspace{3pt}%
+  \noindent\colorbox{TagBg}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \small\color{NavyDeep}%
+      \textbf{Key result:}\enspace#1%
+    }%
+  }%
+  \vspace{3pt}%
+}
+
+%% Inline math shortcut
+\newcommand{\eq}[1]{$#1$}
+
+%% ============================================================
+%%  DOCUMENT
+%% ============================================================
+\begin{document}
+
+%% ── Page header ─────────────────────────────────────────────
+\begin{center}
+  {\fontsize{20}{24}\selectfont\bfseries\color{NavyDeep} Project Portfolio}\\[3pt]
+  {\color{AccentTeal}\rule{3cm}{1pt}}\\[4pt]
+  {\small\color{SubtleGray}
+    Your Full Name\enspace\textbar\enspace
+    \href{mailto:you@university.edu}{you@university.edu}\enspace\textbar\enspace
+    \href{https://github.com/yourhandle}{github.com/yourhandle}\enspace\textbar\enspace
+    \href{https://yoursite.com}{yoursite.com}
+  }
+\end{center}
+\vspace{4pt}
+
+%% ── Project 1 ───────────────────────────────────────────────
+\pfsection{Selected Research Projects}
+
+\projecthead
+  {Adaptive Multilevel Monte Carlo for Stochastic PDEs}
+  {Ph.D.\ dissertation project, University of Somewhere}
+  {2021--Present}
+
+\noindent\cvtag{Numerical Analysis} \cvtag{UQ} \cvtag{C++/MPI} \cvtag{SIAM J.\ Sci.\ Comput.}
+
+\vspace{4pt}
+\textbf{Problem.}\enspace
+UQ for subsurface flow requires statistics of solutions to elliptic PDEs
+\eq{-\nabla\cdot(a(\mathbf{x},\omega)\nabla u)=f} with log-normal random coefficient \eq{a}.
+Standard Monte Carlo costs \eq{\mathcal{O}(\varepsilon^{-2}h^{-d})} for RMSE \eq{\varepsilon}.
+
+\textbf{Contribution.}\enspace
+I designed an \emph{adaptive} multilevel estimator that selects mesh levels
+\eq{\{h_\ell\}} and sample counts \eq{\{N_\ell\}} online by minimising cost subject to
+a variance budget, using a Gaussian process surrogate to predict level contributions.
+
+\begin{itemize}
+  \item Proved optimal complexity \eq{\mathcal{O}(\varepsilon^{-2}|\log\varepsilon|^2)}
+        without \emph{a priori} knowledge of coefficient regularity.
+  \item Implemented in C++17/MPI with FEniCS and PETSc; near-linear weak scaling to
+        512 MPI tasks on Stampede2.
+  \item \eq{3\times} wall-clock speedup over standard MLMC on a 3-D Darcy flow benchmark
+        with Mat\'{e}rn-\eq{3/2} coefficient.
+\end{itemize}
+
+\keyresult{Paper accepted, \textit{SIAM J.\ Sci.\ Comput.}\ 2024. Code: \href{https://github.com/yourhandle/adaptive-mlmc}{\texttt{github.com/yourhandle/adaptive-mlmc}}.}
+
+\vspace{8pt}
+
+%% ── Project 2 ───────────────────────────────────────────────
+\projecthead
+  {Sharp Convergence Analysis of Nonconvex SGD}
+  {Research internship, National Lab}
+  {Summer 2022}
+
+\noindent\cvtag{Optimization Theory} \cvtag{ML Theory} \cvtag{Python/JAX} \cvtag{arXiv preprint}
+
+\vspace{4pt}
+\textbf{Problem.}\enspace
+Convergence guarantees for SGD on nonconvex objectives remain loose;
+prior bounds require bounded gradients or structural assumptions rarely satisfied in practice.
+
+\textbf{Contribution.}\enspace
+I established a sharp \eq{O(k^{-1/2})} rate for
+\eq{\mathbb{E}[\|\nabla f(x_k)\|^2]} under \eq{(L,\sigma)}-smoothness — strictly
+weaker than standard \eq{L}-smoothness — via a Lyapunov function accounting for
+batch-size-dependent variance.
+
+\begin{itemize}
+  \item Derived tight lower bounds confirming \eq{O(k^{-1/2})} is unimprovable without
+        additional curvature information.
+  \item Validated on CIFAR-10/100; empirical convergence matched predicted rates across
+        6 architectures.
+  \item Compared AdaGrad, Adam, SGD-M; identified regimes where adaptive methods
+        provably dominate.
+\end{itemize}
+
+\keyresult{Preprint arXiv:2401.00000; under revision for NeurIPS 2024.}
+
+\vspace{8pt}
+
+%% ── Project 3 ───────────────────────────────────────────────
+\projecthead
+  {Sparse-Grid Collocation for High-Dimensional Bayesian Inversion}
+  {Independent study / course project}
+  {Spring 2023}
+
+\noindent\cvtag{Bayesian Inference} \cvtag{Sparse Grids} \cvtag{Python} \cvtag{SciPy/Chaospy}
+
+\vspace{4pt}
+\textbf{Problem.}\enspace
+Bayesian inversion of distributed parameter fields leads to posteriors on
+high-dimensional (\eq{d=50\text{--}200}) spaces; MCMC is prohibitive when each
+forward solve costs \eq{\sim}1 CPU-minute.
+
+\textbf{Approach.}\enspace
+I built a surrogate-accelerated pipeline: a Smolyak sparse-grid interpolant
+approximates the log-likelihood offline (\eq{\sim 10^3} PDE solves), then
+Metropolis-Hastings samples the surrogate at negligible cost.
+
+\begin{itemize}
+  \item \eq{<}5\% relative error in posterior mean and variance for a 50-D
+        groundwater conductivity inversion.
+  \item Clenshaw--Curtis nodes reduce interpolation error by \eq{2\times} over
+        Legendre nodes for smooth likelihoods.
+  \item Reusable Python module with FEniCS interface; tested on two published benchmarks.
+\end{itemize}
+
+\vspace{8pt}
+
+%% ── Additional Projects ─────────────────────────────────────
+\pfsection{Additional Projects}
+
+\projecthead
+  {Finite-Element Solver for Incompressible Navier--Stokes}
+  {Senior honors thesis, State University}
+  {2019--2020}
+
+\noindent\cvtag{FEM} \cvtag{Fluid Dynamics} \cvtag{C++} \cvtag{deal.II}
+
+\vspace{4pt}
+Taylor--Hood \eq{(\mathbf{P}_2/P_1)} mixed FEM for 2-D incompressible flow using deal.II;
+second-order velocity convergence verified via manufactured solutions.
+Lid-driven cavity flow at \eq{\mathrm{Re}=400,\,1000,\,3200} matches Ghia et al.\
+(1982) to 4 significant figures.
+
+\vspace{6pt}
+
+\projecthead
+  {Computer-Assisted Hopf Bifurcation Proof}
+  {REU project, Another University}
+  {Summer 2019}
+
+\noindent\cvtag{Dynamical Systems} \cvtag{Interval Arithmetic} \cvtag{MATLAB/Intlab}
+
+\vspace{4pt}
+Used INTLAB to rigorously enclose Jacobian eigenvalues of a 3-species Lotka--Volterra
+system and certify a sign change in the real part, constituting a computer-assisted
+proof of Hopf bifurcation at \eq{\mu^*=0.7134\pm10^{-4}}.
+
+\vspace{6pt}
+
+%% ── Skills summary ──────────────────────────────────────────
+\pfsection{Technical Stack}
+
+\noindent{\small
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\toprule
+\textbf{Domain} & \textbf{Tools \& Methods}\\
+\midrule
+Numerical PDE   & FEniCS, deal.II, PETSc, Firedrake, FDM, FEM, Spectral methods\\
+HPC             & C++17, MPI, OpenMP, SLURM, vectorised NumPy, JAX JIT\\
+UQ / Stoch.\    & MLMC, Sparse Grids, Polynomial Chaos, MCMC, Kalman filters\\
+Optimisation    & SciPy, JAX (autodiff), L-BFGS, proximal methods, ADMM\\
+ML              & PyTorch, scikit-learn, Gaussian processes (GPyTorch)\\
+Languages       & Python, C/C++, MATLAB, Julia, R, Bash\\
+\bottomrule
+\end{tabularx}
+}
+
+\end{document}

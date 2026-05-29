@@ -1,0 +1,283 @@
+%% ============================================================
+%%  resume.tex — Applied Mathematics Resume
+%%  Fonts: Palatino  |  Icons: marvosym
+%%  Compile: pdflatex resume.tex  (run twice)
+%% ============================================================
+
+\documentclass[10pt,letterpaper]{article}
+
+%% ── Geometry ────────────────────────────────────────────────
+\usepackage[top=0.65in,bottom=0.65in,left=0.70in,right=0.70in]{geometry}
+
+%% ── Encoding & Font ─────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{palatino}
+\usepackage{microtype}
+
+%% ── Math ────────────────────────────────────────────────────
+\usepackage{amsmath,amssymb}
+
+%% ── Colors ──────────────────────────────────────────────────
+\usepackage[dvipsnames,svgnames]{xcolor}
+\definecolor{NavyDeep}{HTML}{1B2A4A}
+\definecolor{AccentTeal}{HTML}{2A6E7C}
+\definecolor{RuleGray}{HTML}{C8CDD5}
+\definecolor{SubtleGray}{HTML}{6B7280}
+
+%% ── Hyperlinks ──────────────────────────────────────────────
+\usepackage[hidelinks]{hyperref}
+\hypersetup{colorlinks=true,urlcolor=AccentTeal,linkcolor=NavyDeep}
+
+%% ── Lists ───────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{
+  leftmargin=1.4em,itemsep=1.5pt,parsep=0pt,topsep=2pt,
+  label={\color{AccentTeal}\textbullet}
+}
+
+%% ── Tables ──────────────────────────────────────────────────
+\usepackage{booktabs,tabularx,array}
+
+%% ── Icons ───────────────────────────────────────────────────
+\usepackage{marvosym}
+\usepackage{pifont}
+
+%% ── Page-break control ──────────────────────────────────────
+\usepackage{needspace}   % \needspace{Xpt} — keeps header+content together
+
+%% ── Misc ────────────────────────────────────────────────────
+\usepackage{parskip,setspace,calc,etoolbox,multicol}
+\pagestyle{empty}
+
+%% Suppress parskip glue between items we control manually
+\setlength{\parskip}{0pt}
+
+%% ============================================================
+%%  CUSTOM COMMANDS
+%% ============================================================
+
+%% Section header: rule + title kept together with following content
+%% \needspace{5\baselineskip} reserves ~5 lines; increase if sections
+%% still break — header + first entry must both fit.
+\newcommand{\cvsection}[1]{%
+  \needspace{5\baselineskip}%
+  \vspace{8pt}%
+  {\color{NavyDeep}\rule{\linewidth}{0.8pt}\par}%
+  \vspace{-2pt}%
+  {\color{NavyDeep}\large\bfseries\MakeUppercase{#1}\par}%
+  \vspace{3pt}%
+}
+
+%% Entry: \cventry{Title}{Org}{Date}{Details}
+\newcommand{\cventry}[4]{%
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    {\bfseries\color{NavyDeep}#1}\enspace{\color{SubtleGray}\itshape#2} &
+    {\small\color{SubtleGray}#3}\\[-1pt]
+    \multicolumn{2}{@{}l@{}}{\small\color{SubtleGray}#4}
+  \end{tabularx}%
+  \vspace{1pt}%
+}
+
+%% Publication: \cvpub{Authors}{Title}{Venue}{Year}{URL}
+\newcommand{\cvpub}[5]{%
+  \noindent{\small
+    {\color{SubtleGray}#1.}\enspace
+    ``{\itshape#2}.''
+    \enspace{\bfseries#3},\enspace#4.%
+    \ifstrempty{#5}{}{\enspace\href{#5}{{\color{AccentTeal}[link]}}}%
+  }\par\vspace{3pt}%
+}
+
+%% Skill row
+\newcommand{\cvskill}[2]{%
+  \noindent{\small{\bfseries\color{NavyDeep}#1:\enspace}{\color{SubtleGray}#2}}\par\vspace{2pt}%
+}
+
+%% Course tag
+\newcommand{\coursetag}[1]{%
+  \mbox{\small\color{AccentTeal}\texttt{#1}}%
+}
+
+%% Inline math shortcut
+\newcommand{\eq}[1]{$#1$}
+
+%% ============================================================
+%%  DOCUMENT
+%% ============================================================
+\begin{document}
+
+%% ── Header ──────────────────────────────────────────────────
+\begin{center}
+  {\fontsize{22}{26}\selectfont\bfseries\color{NavyDeep} Your Full Name}\\[4pt]
+  {\color{AccentTeal}\rule{3.5cm}{1.2pt}}\\[5pt]
+  {\small\color{SubtleGray}
+    \Email\enspace\href{mailto:you@university.edu}{you@university.edu}
+    \quad\textbar\quad
+    \Telefon\enspace +1\,(555)\,000-0000
+    \quad\textbar\quad
+    \href{https://yoursite.com}{yoursite.com}
+    \quad\textbar\quad
+    \href{https://github.com/yourhandle}{github.com/yourhandle}
+    \quad\textbar\quad
+    City, State
+  }
+\end{center}
+\vspace{2pt}
+\begin{center}
+  {\small\color{NavyDeep}
+    \textit{Research interests:}\enspace
+    Numerical Analysis\enspace$\cdot$\enspace
+    Scientific Computing\enspace$\cdot$\enspace
+    Stochastic Processes\enspace$\cdot$\enspace
+    Optimization\enspace$\cdot$\enspace
+    Mathematical Modeling
+  }
+\end{center}
+
+%% ── Education ───────────────────────────────────────────────
+\cvsection{Education}
+
+\cventry
+  {Ph.D.\ in Applied Mathematics}
+  {University of Somewhere}
+  {Expected May 2026}
+  {Advisor: Prof.\ Jane Doe\enspace|\enspace GPA: 3.95/4.0}
+\begin{itemize}
+  \item Dissertation: \textit{``Adaptive Multilevel Methods for Stochastic PDEs on Complex Domains''}
+  \item Coursework: \coursetag{Numerical PDEs} \coursetag{Functional Analysis}
+    \coursetag{Stochastic Calculus} \coursetag{Optimization} \coursetag{ML Theory}
+\end{itemize}
+
+\vspace{4pt}
+\cventry
+  {B.S.\ Mathematics (Honors), Minor Computer Science}
+  {State University}
+  {May 2020}
+  {Summa Cum Laude\enspace|\enspace GPA: 3.98/4.0}
+\begin{itemize}
+  \item Senior thesis: \textit{``Finite Element Approximations to the Navier--Stokes Equations''}
+\end{itemize}
+
+%% ── Research Experience ─────────────────────────────────────
+\cvsection{Research Experience}
+
+\cventry
+  {Graduate Research Assistant}
+  {Computational Science Lab, University of Somewhere}
+  {Aug 2020 – Present}
+  {Advisor: Prof.\ Jane Doe}
+\begin{itemize}
+  \item Developed adaptive multilevel Monte Carlo (MLMC) for elliptic SPDEs achieving
+        \eq{\mathcal{O}(h^2\varepsilon^{-2})} complexity — \eq{3\times} speedup over
+        standard MLMC on benchmark problems.
+  \item Implemented parallel C++/MPI solver on unstructured meshes; near-linear weak
+        scaling to 512 cores on university HPC cluster.
+  \item Applied sparse-grid collocation for UQ in subsurface flow models across
+        20-dimensional parameter spaces.
+\end{itemize}
+
+\vspace{4pt}
+\cventry
+  {Research Intern — Mathematics of Machine Learning}
+  {National Lab or Industry Partner}
+  {Jun – Aug 2022}
+  {Mentor: Dr.\ John Smith}
+\begin{itemize}
+  \item Proved sharp \eq{O(k^{-1/2})} SGD convergence under \eq{(L,\sigma)}-smooth
+        assumptions; derived matching lower bounds.
+  \item Benchmarked quasi-Newton methods for large-scale logistic regression,
+        outperforming L-BFGS by 18\% on standard NLP datasets.
+\end{itemize}
+
+\vspace{4pt}
+\cventry
+  {REU Participant — Dynamical Systems}
+  {Another University}
+  {May – Jul 2019}
+  {Mentor: Prof.\ Alice Brown}
+\begin{itemize}
+  \item Computer-assisted proof of Hopf bifurcation in a 3-species Lotka--Volterra
+        model using interval arithmetic.
+\end{itemize}
+
+%% ── Publications ────────────────────────────────────────────
+\cvsection{Publications \& Preprints}
+
+\cvpub{Your Name, Jane Doe}
+  {Adaptive Multilevel Monte Carlo for Stochastic Elliptic Equations}
+  {SIAM Journal on Scientific Computing}{2024}
+  {https://doi.org/10.xxxx/xxxxxx}
+
+\cvpub{Your Name, John Smith}
+  {Sharp Convergence Rates for Nonconvex SGD with Variance Reduction}
+  {arXiv preprint arXiv:2401.00000}{2023}
+  {https://arxiv.org/abs/2401.00000}
+
+\cvpub{Your Name, Alice Brown}
+  {Computer-Assisted Proof of Hopf Bifurcation in a Predator--Prey System}
+  {Journal of Mathematical Biology}{2020}{}
+
+%% ── Talks ───────────────────────────────────────────────────
+\cvsection{Talks \& Presentations}
+
+\noindent{\small
+\begin{tabularx}{\linewidth}{@{}l X r@{}}
+  \textbf{SIAM Annual Meeting}  & ``Adaptive MLMC for SPDEs'' (contributed talk)     & 2024\\[1pt]
+  \textbf{Applied Math Seminar} & University of Somewhere (invited)                  & 2023\\[1pt]
+  \textbf{ICIAM}                & ``Nonconvex SGD convergence rates'' (poster)        & 2023\\[1pt]
+  \textbf{AMS Spring Sectional} & ``Hopf bifurcations via interval arithmetic'' (poster) & 2020\\
+\end{tabularx}
+}
+
+%% ── Teaching ────────────────────────────────────────────────
+\cvsection{Teaching Experience}
+
+\cventry
+  {Teaching Assistant — Numerical Analysis (MATH 5XX)}
+  {University of Somewhere}
+  {Fall 2021, Spring 2023}
+  {Lead sections, write \& grade problem sets, hold office hours for 45 students}
+
+\vspace{3pt}
+\cventry
+  {Instructor of Record — Calculus II (MATH 1XX)}
+  {University of Somewhere}
+  {Summer 2022}
+  {Sole instructor; course evaluations 4.7/5.0}
+
+%% ── Skills ──────────────────────────────────────────────────
+\cvsection{Technical Skills}
+
+\cvskill{Languages}{Python (NumPy, SciPy, JAX), C/C++, MATLAB, Julia, R, Bash}
+\cvskill{HPC \& Parallel}{MPI, OpenMP, SLURM, GPU computing (CUDA basics)}
+\cvskill{Math Software}{FEniCS, PETSc, deal.II, Firedrake, LAPACK/BLAS}
+\cvskill{ML / Data}{PyTorch, scikit-learn, pandas, Jupyter}
+\cvskill{Tools}{Git, \LaTeX{}, Linux, Docker, CMake}
+\cvskill{Methods}{FEM, FDM, Spectral Methods, MLMC, Optimization, Bayesian Inference}
+
+%% ── Honors ──────────────────────────────────────────────────
+\cvsection{Honors, Fellowships \& Awards}
+
+\noindent{\small
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+  NSF Graduate Research Fellowship                           & 2021--2026\\[1pt]
+  SIAM Student Paper Prize (honorable mention)               & 2023\\[1pt]
+  Dean's Doctoral Excellence Award, University of Somewhere  & 2022\\[1pt]
+  Phi Beta Kappa, State University                           & 2020\\[1pt]
+  Barry Goldwater Scholarship                                & 2019\\
+\end{tabularx}
+}
+
+%% ── Service ─────────────────────────────────────────────────
+\cvsection{Service \& Professional Activities}
+
+\noindent{\small\color{SubtleGray}
+Referee: \textit{SIAM J.\ Numer.\ Anal.}, \textit{Math.\ Comp.},
+\textit{J.\ Comput.\ Phys.}\quad$\cdot$\quad
+Organizer: Graduate Applied Math Seminar, 2022--2024\quad$\cdot$\quad
+Member: SIAM, AMS
+}
+
+\end{document}
